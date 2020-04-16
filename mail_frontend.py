@@ -15,11 +15,14 @@ def addmail(event):
 def loadfromfile():
     x = filedialog.askopenfilename(title = "Select your list file", filetypes = (("Txt FIle","*.txt"), ("All Files","*.*")))
     if x != ():
-        with open(x,"r") as fi:
-            y = fi.readlines()
-            for mail in y:
-                maillist.append(mail)
-                Label(insidecanv, text = mail, width = 95, anchor = "w").pack()
+        try:
+            with open(x,"r") as fi:
+                y = fi.readlines()
+                for mail in y:
+                    maillist.append(mail)
+                    Label(insidecanv, text = mail, width = 95, anchor = "w").pack()
+        except:
+            pass
 def reset():
     global maillist
     maillist = []
