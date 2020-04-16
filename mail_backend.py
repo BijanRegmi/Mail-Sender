@@ -16,11 +16,17 @@ class Mail:
         self.their = their_address
 
     def login(self):
-        self.process.login(self.my,self.password)
+        try:
+            self.process.login(self.my,self.password)
+        except:
+            raise Exception("Invalid Username or Password")
 
     def send(self,message):
         for x in self.their:
-            self.process.sendmail(from_addr=self.my,to_addrs=x,msg=message)
+            try:
+                self.process.sendmail(from_addr=self.my,to_addrs=x,msg=message)
+            except:
+                print("Sending mail to " + x + "failed!")
 
     def __str__(self):
         return "\nSender: " + self.my + "\nReciever: " + str(self.their)
