@@ -23,6 +23,7 @@ def loadfromfile():
                     Label(insidecanv, text = mail, width = 95, anchor = "w").pack()
         except:
             pass
+
 def reset():
     global maillist
     maillist = []
@@ -34,13 +35,14 @@ def showpas():
         password_field.configure(show = "")
     else:
         password_field.configure(show = "*")
+        
 def sendmails():
+    server = mb.Mail()
+    server.sender(username_field.get(), password_field.get())
+    server.reciever(maillist)
+    server.login()
+    msg = msghere.get("1.0", END)
     try:
-        server = mb.Mail()
-        server.sender(username_field.get(), password_field.get())
-        server.reciever(maillist)
-        server.login()
-        msg = msghere.get("1.0", END)
         server.send(msg)
         status.configure(text = "Completed")
     except:
